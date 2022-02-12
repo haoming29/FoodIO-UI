@@ -1,7 +1,7 @@
 import service from "./index";
 
 export const postSearchPantry = async (q) =>
-  service.post(`/api/search/pantries`, { q: q });
+  service.post(`/api/pantries/search`, { q: q });
 
 export const getPantries = async () => service.get(`/api/pantries`);
 

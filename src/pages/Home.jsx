@@ -1,18 +1,25 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { Input } from "antd";
 import PantryEntry from "../components/Home/PantryEntry";
-import { useHistory } from "react-router-dom";
-import { getPantries } from "../services/api";
+import { useHistory, useLocation } from "react-router-dom";
+import { getPantries, postSearchPantry } from "../services/api";
 import "./Home.css";
 
 const Home = () => {
   const { Search } = Input;
   const history = useHistory();
+  const location = useLocation();
   const [data, setData] = useState(undefined);
+  const [search, setSearch] = useState(undefined);
 
-  const getdata = useCallback(async () => {
-    let ds = await getPantries();
-    ds = ds.map((item) => {
+  const postSearch = useCallback(async () => {
+    let result = undefined;
+    if (search) {
+      result = await postSearchPantry(search);
+    } else {
+      result = await getPantries();
+    }
+    result = result.map((item) => {
       item.distance = Number(Math.random() * 10 + 0.2).toFixed(2);
       item.image =
         "https://cdn.vox-cdn.com/thumbor/r2Hr6L8wILmP5xEDaRLxQQ7lbo0=/0x0:3000x2000/1200x800/filters:focal(1260x760:1740x1240)/cdn.vox-cdn.com/uploads/chorus_image/image/65895442/batwing.7.jpg";
@@ -20,81 +27,27 @@ const Home = () => {
       item.types = ["Meat", "Grocery", "Vegitable"];
       return item;
     });
-    setData(ds);
-  }, []);
+    setData(result);
+  }, [search]);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {});
     }
-    if (!data) {
-      getdata();
-    }
-  }, [data, getdata]);
+    const params = location.search.substring(1);
+    const q = params.split("&")[0].split("=")[1];
+    setSearch(q);
+    postSearch();
+  }, [location, postSearch]);
 
-  const onSearch = () => {};
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+    history.push(`/?q=${search}`);
+  };
 
   const handleEntryClick = (id) => {
     history.push(`/pantry/${id}`);
   };
-
-  const pantryMock = [
-    {
-      id: "1",
-      name: "Sunny side pantry",
-      image:
-        "https://cdn.vox-cdn.com/thumbor/r2Hr6L8wILmP5xEDaRLxQQ7lbo0=/0x0:3000x2000/1200x800/filters:focal(1260x760:1740x1240)/cdn.vox-cdn.com/uploads/chorus_image/image/65895442/batwing.7.jpg",
-      address: "124 N. Park St.",
-      distance: "0.8",
-      status: "Open",
-      options: ["Delivery", "Pickup"],
-      types: ["Meat", "Grocery", "Vegitable"],
-    },
-    {
-      id: "2",
-      name: "Sunny side pantry",
-      image:
-        "https://cdn.vox-cdn.com/thumbor/r2Hr6L8wILmP5xEDaRLxQQ7lbo0=/0x0:3000x2000/1200x800/filters:focal(1260x760:1740x1240)/cdn.vox-cdn.com/uploads/chorus_image/image/65895442/batwing.7.jpg",
-      address: "124 N. Park St.",
-      distance: "0.8",
-      status: "Open",
-      options: ["Delivery", "Pickup"],
-      types: ["Meat", "Grocery", "Vegitable"],
-    },
-    {
-      id: "3",
-      name: "Sunny side pantry",
-      image:
-        "https://cdn.vox-cdn.com/thumbor/r2Hr6L8wILmP5xEDaRLxQQ7lbo0=/0x0:3000x2000/1200x800/filters:focal(1260x760:1740x1240)/cdn.vox-cdn.com/uploads/chorus_image/image/65895442/batwing.7.jpg",
-      address: "124 N. Park St.",
-      distance: "0.8",
-      status: "Open",
-      options: ["Delivery", "Pickup"],
-      types: ["Meat", "Grocery", "Vegitable"],
-    },
-    {
-      id: "4",
-      name: "Sunny side pantry",
-      image:
-        "https://cdn.vox-cdn.com/thumbor/r2Hr6L8wILmP5xEDaRLxQQ7lbo0=/0x0:3000x2000/1200x800/filters:focal(1260x760:1740x1240)/cdn.vox-cdn.com/uploads/chorus_image/image/65895442/batwing.7.jpg",
-      address: "124 N. Park St.",
-      distance: "0.8",
-      status: "Open",
-      options: ["Delivery", "Pickup"],
-      types: ["Meat", "Grocery", "Vegitable"],
-    },
-    {
-      id: "5",
-      name: "Sunny side pantry",
-      image:
-        "https://cdn.vox-cdn.com/thumbor/r2Hr6L8wILmP5xEDaRLxQQ7lbo0=/0x0:3000x2000/1200x800/filters:focal(1260x760:1740x1240)/cdn.vox-cdn.com/uploads/chorus_image/image/65895442/batwing.7.jpg",
-      address: "124 N. Park St.",
-      distance: "0.8",
-      status: "Open",
-      options: ["Delivery", "Pickup"],
-      types: ["Meat", "Grocery", "Vegitable"],
-    },
-  ];
 
   return (
     <div className="page-container page--home">
@@ -103,7 +56,7 @@ const Home = () => {
       </div>
       <div className="home-search">
         <Search
-          placeholder="start with the name of the pantry"
+          placeholder="Start with the name of the pantry"
           allowClear
           enterButton="Search"
           size="large"
