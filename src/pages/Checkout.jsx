@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Mock from "mockjs";
 import { Form, Input, TimePicker, Button } from "antd";
 import moment from "moment";
-import "./Checkout.css";
 import { ORDER_SESSION_NAME } from "../config";
 import { useHistory } from "react-router-dom";
 import OrderSummary from "../components/Checkout/OrderSummary";

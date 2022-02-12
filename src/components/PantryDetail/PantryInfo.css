@@ -30,8 +30,10 @@
   display: flex;
 }
 .info-detail-info {
+  flex-grow: 1;
   margin-right: 20px;
 }
+
 .info-address {
 }
 .info-phone {
@@ -48,4 +50,5 @@
   min-width: 200px;
 }
 .info-hour-entry {
+  text-align: right;
 }

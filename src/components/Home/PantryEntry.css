@@ -36,6 +36,7 @@
   display: flex;
 }
 .pantry-entry-address-text {
+  width: 200px;
 }
 .pantry-entry-address-distance {
   margin-left: 20px;
