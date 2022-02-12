@@ -83,7 +83,10 @@ const PantryDetail = () => {
       if (oldOrder) {
         setIsModalVisible(true);
       } else {
-        window.sessionStorage.setItem(ORDER_SESSION_NAME, order);
+        window.sessionStorage.setItem(
+          ORDER_SESSION_NAME,
+          JSON.stringify(order)
+        );
         history.push("/checkout");
       }
     }

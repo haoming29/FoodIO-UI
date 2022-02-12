@@ -31,8 +31,11 @@ const validateMessages = {
 
 const Checkout = () => {
   const history = useHistory();
+  const [form] = Form.useForm();
+
   const [orderInfo, setOrderInfo] = useState(undefined);
   const [pantryName, setPantryName] = useState(undefined);
+  const [formData, setFormData] = useState(undefined);
   const [progress, setProgress] = useState(0);
 
   const data = Mock.mock({
@@ -68,7 +71,21 @@ const Checkout = () => {
       setProgress(progress + 1);
     } else {
       console.log("submit!");
+      window.sessionStorage.removeItem(ORDER_SESSION_NAME);
+      history.push(`/confirm/${"someid"}`);
     }
+  };
+
+  const handleSave = () => {
+    form.validateFields().then(
+      () => {
+        const formValues = form.getFieldsValue();
+        setFormData(formValues);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
 
   return (
@@ -89,6 +106,7 @@ const Checkout = () => {
             <Form
               {...layout}
               name="checkout-form"
+              form={form}
               onFinish={onFinish}
               validateMessages={validateMessages}
             >
@@ -151,7 +169,7 @@ const Checkout = () => {
                 <TimePicker defaultValue={moment("12:08:23", "HH:mm:ss")} />
               </Form.Item>
               <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type={"primary"} onClick={() => handleSave()}>
                   Save
                 </Button>
               </Form.Item>
