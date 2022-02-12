@@ -1,0 +1,40 @@
+.info-container {
+  display: flex;
+  margin: 20px 0;
+  padding: 20px 0;
+}
+.info-image-container {
+  margin-right: 20px;
+}
+.info-image {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+}
+.info-texts {
+}
+.info-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.info-detail {
+  display: flex;
+}
+.info-detail-info {
+  margin-right: 20px;
+}
+.info-address {
+}
+.info-phone {
+}
+.info-email {
+}
+.info-option-icon-group {
+}
+.info-option-description {
+}
+.info-hours {
+  min-width: 200px;
+}
+.info-hour-entry {
+}

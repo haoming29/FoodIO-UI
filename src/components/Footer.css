@@ -1,0 +1,25 @@
+.footer {
+  padding: 40px 0;
+  background-color: #4ba8fe;
+  text-align: center;
+}
+
+.footer_logo-wrap {
+  margin: 15px;
+}
+
+.logo-footer {
+  height: 80px;
+  margin: 15px;
+  object-fit: cover;
+}
+
+.footer_logo-wrap:hover {
+  cursor: pointer;
+}
+
+.footer_sub-header {
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: #f6fbff;
+}

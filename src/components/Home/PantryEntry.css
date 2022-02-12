@@ -1,0 +1,59 @@
+.pantry-entry-container {
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+  width: 100%;
+  border-bottom: solid 1px #0062bc;
+  transition: ease-in-out 100ms background;
+}
+
+.pantry-entry-container :hover {
+  cursor: pointer;
+  background: #eff7ff;
+}
+
+.pantry-entry-image-container {
+  height: 100%;
+  padding: 10px 0;
+}
+.pantry-entry-image {
+  height: 100%;
+  width: 160px;
+  object-fit: cover;
+}
+.pantry-entry-texts {
+  flex-grow: 1;
+  padding: 10px 20px 0 20px;
+}
+.pantry-entry-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.pantry-entry-status {
+}
+.pantry-entry-address {
+  display: flex;
+}
+.pantry-entry-address-text {
+}
+.pantry-entry-address-distance {
+  margin-left: 20px;
+}
+.pantry-entry-order {
+  display: flex;
+}
+.pantry-entry-order-options {
+}
+
+.pantry-entry-order-options span {
+  margin-right: 6px;
+}
+
+.pantry-entry-order-food-types {
+  margin-left: 40px;
+}
+
+.pantry-entry-order-food-types span {
+  margin-right: 10px;
+}

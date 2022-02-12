@@ -1,0 +1,17 @@
+.home-headline {
+  margin: 40px 0 30px 0;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0062bc;
+}
+
+.home-search {
+  margin: 20px 0 50px 0;
+}
+
+.home-pantry-list {
+  height: 500px;
+  overflow: scroll;
+  margin: 40px 0;
+  border: solid 1px #0062bc;
+}
