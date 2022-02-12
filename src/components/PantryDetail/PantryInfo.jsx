@@ -1,6 +1,5 @@
 import React from "react";
 import { CarOutlined, ShoppingOutlined } from "@ant-design/icons";
-import { Row, Col } from "antd";
 import "./PantryInfo.css";
 
 const PantryInfo = (props) => {
@@ -32,11 +31,11 @@ const PantryInfo = (props) => {
           <div className="info-detail-info">
             <div className="info-address">{address}</div>
             <div className="info-phone">
-              <span>Phone:</span>
+              <span className="info-label">Phone:</span>
               <span>{phone}</span>
             </div>
             <div className="info-email">
-              <span>Email:</span>
+              <span className="info-label">Email:</span>
               <span>{email}</span>
             </div>
             <div className="info-option-icon-group">

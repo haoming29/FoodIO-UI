@@ -1,0 +1,30 @@
+.checkout-heading {
+  margin: 40px 0 20px 0;
+  color: #0062bc;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.checkout-subheading {
+  margin: 20px 0 20px 0;
+  font-size: 1.1rem;
+}
+
+.checkout-summary {
+  margin: 20px 0 40px 0;
+}
+
+.checkout-pantry-name {
+  font-weight: bold;
+}
+
+.checkout-pantry-name:hover {
+  cursor: pointer;
+}
+.checkout-continue {
+  margin: 20px 0;
+}
+
+.checkout-form-container {
+  margin: 40px auto;
+}

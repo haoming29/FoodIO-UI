@@ -1,9 +1,30 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { Button, message, Modal } from "antd";
+import Mock from "mockjs";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import InventoryTable from "../components/PantryDetail/InventoryTable";
 import PantryInfo from "../components/PantryDetail/PantryInfo";
+import { ORDER_SESSION_NAME } from "../config";
+import "./PantryDetail.css";
 
 const PantryDetail = () => {
   const { id } = useParams();
+  const history = useHistory();
+  const [selected, setSelected] = useState(undefined);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const dataSource = Mock.mock({
+    "data|30": [
+      {
+        "key|+1": 1,
+        name: "@string(5)",
+        image: "https://picsum.photos/200/300",
+        "amount|0-100": 100,
+        "category|1": ["Fruit", "Meat", "Vegetable", "Misc"],
+      },
+    ],
+  });
   const data = {
     name: "Sunny side pantry",
     image:
@@ -25,8 +46,73 @@ const PantryDetail = () => {
       { day: 7, start: 11, end: 15 },
     ],
   };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    const order = {
+      pantryID: id,
+      items: selected,
+    };
+    window.sessionStorage.setItem(ORDER_SESSION_NAME, JSON.stringify(order));
+    history.push("/checkout");
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCheckoutOld = () => {
+    setIsModalVisible(false);
+    history.push("/checkout");
+  };
+
+  const handleSelect = (selectedIDs) => {
+    setSelected(selectedIDs);
+  };
+
+  const handleSubmit = () => {
+    const order = {
+      pantryID: id,
+      items: selected,
+    };
+
+    if (!selected || selected.length <= 0) {
+      message.warning("You need to select at least one item before preceeding");
+    } else {
+      const oldOrder = sessionStorage.getItem(ORDER_SESSION_NAME);
+      if (oldOrder) {
+        setIsModalVisible(true);
+      } else {
+        window.sessionStorage.setItem(ORDER_SESSION_NAME, order);
+        history.push("/checkout");
+      }
+    }
+  };
+
   return (
     <div className="page-container">
+      <Modal
+        title="Basic Modal"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText={"Continue"}
+        footer={
+          <>
+            <Button onClick={handleCheckoutOld}>
+              Check out with old order
+            </Button>{" "}
+            <Button onClick={handleOk} type="primary">
+              Continue
+            </Button>
+          </>
+        }
+      >
+        <p>
+          You have order already in place, do you want to remove them before
+          adding this new order?
+        </p>
+      </Modal>
       <PantryInfo
         image={data.image}
         name={data.name}
@@ -38,6 +124,17 @@ const PantryDetail = () => {
         description={data.description}
         stauts={data.stauts}
       />
+      <InventoryTable dataSource={dataSource} handleSelect={handleSelect} />
+      <div className="pantry-order-btn">
+        <Button
+          type="primary"
+          size="large"
+          icon={<ShoppingCartOutlined />}
+          onClick={() => handleSubmit()}
+        >
+          Check out
+        </Button>
+      </div>
     </div>
   );
 };

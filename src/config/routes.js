@@ -1,7 +1,6 @@
 import Home from "../pages/Home";
 import PantryDetail from "../pages/PantryDetail";
-import OrderForm from "../pages/OrderForm";
-import OrderConfirm from "../pages/OrderConfirm";
+import OrderConfirm from "../pages/Checkout";
 import ErrorNotFound from "../pages/ErrorNotFound";
 
 const mainRoutes = [
@@ -13,13 +12,7 @@ const mainRoutes = [
     exact: true,
   },
   {
-    path: "/order",
-    loginRequired: false,
-    component: OrderForm,
-    exact: false,
-  },
-  {
-    path: "/confirmation",
+    path: "/checkout",
     loginRequired: false,
     component: OrderConfirm,
     exact: true,

@@ -15,7 +15,7 @@ const Nav = () => {
               src={process.env.PUBLIC_URL + "logo-light.png"}
               alt="logo"
             />
-            FOOD.IO
+            Food.IO
           </Link>
           <div className="menu-icon">
             <i className={click ? "fas fa-times" : "fas fa-bars"} />

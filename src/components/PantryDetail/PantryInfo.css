@@ -13,7 +13,16 @@
 }
 .info-texts {
 }
+
+.info-label {
+  display: inline-block;
+  text-align: right;
+  width: 50px;
+  margin-right: 10px;
+  font-weight: 700;
+}
 .info-name {
+  margin-bottom: 10px;
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -30,8 +39,10 @@
 .info-email {
 }
 .info-option-icon-group {
+  margin: 10px 0;
 }
 .info-option-description {
+  margin-top: 10px;
 }
 .info-hours {
   min-width: 200px;
